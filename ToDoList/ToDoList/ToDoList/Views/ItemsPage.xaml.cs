@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using ToDoList.Models;
+using ToDoList.Views;
+using ToDoList.ViewModels;
+using System.Globalization;
+
+namespace ToDoList.Views
+{
+    // Learn more about making custom code visible in the Xamarin.Forms previewer
+    // by visiting https://aka.ms/xamarinforms-previewer
+    [DesignTimeVisible(false)]
+
+
+    public class ConverterText : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object para, CultureInfo culture)
+        {
+            if ((bool)value == true)
+                return TextDecorations.Strikethrough;
+            else return null;
+        }
+        public object ConvertBack(object value, Type targetType, object para, CultureInfo culture)
+        {
+            return new NotImplementedException();
+        }
+
+       
+    }
+    public class ConverterColor : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object para, CultureInfo culture)
+        {
+            if ((bool)value == true)
+                return Color.Gray;
+            else return Color.Black;
+        }
+        public object ConvertBack(object value, Type targetType, object para, CultureInfo culture)
+        {
+            return new NotImplementedException();
+        }
+
+
+    }
+    public partial class ItemsPage : ContentPage
+    {
+        ItemsViewModel viewModel;
+        
+        public ItemsPage()
+        {
+
+            InitializeComponent();
+            BindingContext = viewModel = new ItemsViewModel();
+            
+            
+        }
+
+        async void OnItemSelected(object sender, EventArgs args)
+        {
+            var layout = (BindableObject)sender;
+            var Item = (Item)layout.BindingContext;
+            
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(Item)));
+        }
+
+        async void AddItem_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+        }
+
+        protected override void OnAppearing()
+        {
+            viewModel.IsBusy = true;
+            base.OnAppearing();
+            
+        }
+
+        
+    }
+}

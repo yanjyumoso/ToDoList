@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ToDoList.Views.ItemDetailPage"
+             Title="{Binding Title}">
+
+    
+
+    <StackLayout Spacing="20" Padding="15">
+
+        <Grid x:Name="grid" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackLayout Grid.Row="0" Grid.Column="0">
+                <Label Text="Create Day:" FontSize="Medium" Style="{StaticResource label}"/>
+                <DatePicker Date="{Binding Item.CreateDate}" IsEnabled="False"/>
+                <Label Text="Text:" Style="{StaticResource label}"/>
+                <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small"/>
+                <Label Text="Description:" Style="{StaticResource label}" />
+                <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Repeat?" Style="{StaticResource label}"/>
+                    <Switch IsToggled="{Binding Item.IsRepeat}" IsEnabled="False"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="0" x:Name="layout">
+
+                <Label x:Name="type" Text="{Binding Itemtype.Type}" Style="{StaticResource label}"/>
+                <Image x:Name="image" HorizontalOptions="Center"/>
+            </StackLayout>
+        </Grid>
+
+        
+        <Button x:Name="fin" Text="Finished" Clicked="FinishBtn_Clicked" />
+        <Button x:Name="unfin" Text="UnFinished" Clicked="UnfinishBtn_Clicked"/>
+    </StackLayout>
+
+</ContentPage>

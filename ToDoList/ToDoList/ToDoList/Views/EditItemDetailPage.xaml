@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ToDoList.Views.EditItemDetailPage"
+             Title="Edit Item">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+
+        <StackLayout Spacing="20" Padding="15">
+            <Grid x:Name="grid" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Label Text="Text" Style="{StaticResource label}"/>
+                    <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
+                    <Label Text="Description" Style="{StaticResource label}" />
+                    <Editor Text="{Binding Item.Description}" HeightRequest="300" FontSize="Small" Margin="0" />
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0" x:Name="layout">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Item Type: " Style="{StaticResource label}"/>
+                        <Picker SelectedIndex="{Binding Item.Itemtype}" HorizontalOptions="StartAndExpand">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Study</x:String>
+                                    <x:String>Entertainment</x:String>
+                                    <x:String>Shopping</x:String>
+                                    <x:String>Food</x:String>
+                                    <x:String>None</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Repeat?" Style="{StaticResource label}"/>
+                        <Switch x:Name="isRepeat" IsEnabled="False" IsToggled="{Binding Item.IsRepeat}"/>
+                        <StackLayout x:Name="everydayLayout" Orientation="Horizontal">
+                            <Label Text="Everyday?" Style="{StaticResource label}"/>
+                            <CheckBox x:Name="everyday" CheckedChanged="everyday_CheckedChanged" IsEnabled="False"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout x:Name="weekday" IsVisible="false">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Sun"/>
+                            <CheckBox x:Name="sun" CheckedChanged="checkbox_CheckedChanged"/>
+                            <Label Text="Mon"/>
+                            <CheckBox x:Name="mon" CheckedChanged="checkbox_CheckedChanged"/>
+                            <Label Text="Tue"/>
+                            <CheckBox x:Name="tue" CheckedChanged="checkbox_CheckedChanged"/>
+                            <Label Text="Wed"/>
+                            <CheckBox x:Name="wed" CheckedChanged="checkbox_CheckedChanged"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Thu"/>
+                            <CheckBox x:Name="thu" CheckedChanged="checkbox_CheckedChanged"/>
+                            <Label Text="Fir"/>
+                            <CheckBox x:Name="fri" CheckedChanged="checkbox_CheckedChanged"/>
+                            <Label Text="Sat"/>
+                            <CheckBox x:Name="sat" CheckedChanged="checkbox_CheckedChanged"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+            <Button Text="Delete" Clicked="Delete_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
